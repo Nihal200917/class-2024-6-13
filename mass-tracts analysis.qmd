@@ -1,0 +1,21 @@
+---
+title: "Mass-tracts"
+author: "Nihal Neeraj"
+format: html
+execute: 
+  echo: false
+---
+
+```{r}
+#| message: false
+#| label: setup
+library(tidyverse)
+```
+
+```{r}
+#| warning: false
+x <- read_csv(file = "data/mass-tracts.csv") |>
+  ggplot(aes(x = med_income))
+print(x)
+```
+
