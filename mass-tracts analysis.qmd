@@ -10,12 +10,32 @@ execute:
 #| message: false
 #| label: setup
 library(tidyverse)
+library(dplyr)
 ```
 
 ```{r}
 #| warning: false
 x <- read_csv(file = "data/mass-tracts.csv") |>
-  ggplot(aes(x = med_income))
+  ggplot(aes(x = med_income, fill = race)) +
+  geom_density(alpha = 0.5, adjust = 2) +
+  scale_fill_manual(values = c("Hispanic" = "red", "Black" = "green", "Asian" = "cyan", "White" = "purple")) +
+  scale_x_continuous(labels = scales::dollar_format()) +
+  labs(
+    title = "Median Income for Massachusetts Census Tracts",
+    subtitle = "The richest tracts are White",
+    x = "Median Income",
+    y = "",
+    fill = "Race",
+    caption = "The race of each tract is determined by the most numerous racial group present in that tract. Data from the American Community Survey 2022."
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 20, face = "bold"),
+    plot.subtitle = element_text(size = 14),
+    legend.title = element_text(size = 12),
+    legend.text = element_text(size = 10),
+    axis.text.y = element_blank()
+  ) 
 print(x)
 ```
 
